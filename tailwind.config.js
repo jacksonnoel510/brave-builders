@@ -1,19 +1,15 @@
+// tailwind.config.js
 /** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
+    "./main.jsx",
+    "./index.css"
+    // Add other paths where you use Tailwind classes
   ],
   theme: {
-    extend: {
-      colors: {
-        primary: '#1e40af',
-        secondary: '#dc2626',
-      },
-      fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-      },
-    },
+    extend: {},
   },
   plugins: [],
 }
