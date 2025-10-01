@@ -18,9 +18,32 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log('Form submitted:', formData);
-    alert('Thank you for your message! We will get back to you soon.');
+    
+    // Your email address
+    const yourEmail = "jacksonnoel510@gmail.com"; // Replace with your actual email
+    
+    // Create email subject and body
+    const subject = `New Project Inquiry: ${formData.project || 'General'} - ${formData.name}`;
+    const body = `
+Name: ${formData.name}
+Email: ${formData.email}
+Phone: ${formData.phone}
+Project Type: ${formData.project}
+
+Message:
+${formData.message}
+
+---
+Sent from Brave Builders Contact Form
+    `.trim();
+
+    // Create mailto link
+    const mailtoLink = `mailto:${yourEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    
+    // Open default email client
+    window.location.href = mailtoLink;
+    
+    // Optional: Reset form after submission
     setFormData({
       name: '',
       email: '',
