@@ -2,18 +2,66 @@ import React, { useEffect, useState } from 'react';
 
 const Hero = () => {
   const [displayText, setDisplayText] = useState('');
+  const [subDisplayText, setSubDisplayText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [subCurrentIndex, setSubCurrentIndex] = useState(0);
+  
   const fullText = "Build With Confidence";
+  const subText = "Your Trusted Partner for Exceptional Construction Solutions Built on Quality, Reliability, and Innovation";
 
   useEffect(() => {
     if (currentIndex < fullText.length) {
       const timer = setTimeout(() => {
         setDisplayText(prev => prev + fullText[currentIndex]);
         setCurrentIndex(prev => prev + 1);
-      }, 100); // Adjust typing speed here
+      }, 100);
+      return () => clearTimeout(timer);
+    } else if (currentIndex === fullText.length && subCurrentIndex === 0) {
+      // Start subtitle typing after main title finishes
+      const timer = setTimeout(() => {
+        setSubCurrentIndex(1);
+      }, 500);
       return () => clearTimeout(timer);
     }
   }, [currentIndex, fullText]);
+
+  useEffect(() => {
+    if (subCurrentIndex > 0 && subCurrentIndex <= subText.length) {
+      const timer = setTimeout(() => {
+        setSubDisplayText(prev => prev + subText[subCurrentIndex - 1]);
+        setSubCurrentIndex(prev => prev + 1);
+      }, 50); // Faster typing for subtitle
+      return () => clearTimeout(timer);
+    }
+  }, [subCurrentIndex, subText]);
+
+  // Function to format the subtitle with bold parts
+  const formatSubtitle = (text) => {
+    const boldText = "Exceptional Construction Solutions";
+    const parts = text.split(boldText);
+    
+    if (parts.length === 2) {
+      return (
+        <>
+          {parts[0]}
+          <span className="font-semibold text-white">{boldText}</span>
+          {parts[1]}
+          {subCurrentIndex <= subText.length && (
+            <span className="ml-1 w-1 h-6 bg-blue-300 animate-pulse inline-block align-middle"></span>
+          )}
+        </>
+      );
+    }
+    
+    return (
+      <>
+        {text}
+        {subCurrentIndex <= subText.length && (
+          <span className="ml-1 w-1 h-6 bg-blue-300 animate-pulse inline-block align-middle"></span>
+        )}
+      </>
+    );
+  };
 
   return (
     <section id="home" className="relative bg-gradient-to-br from-blue-900 via-blue-700 to-blue-600 text-white overflow-hidden">
@@ -46,9 +94,7 @@ const Hero = () => {
 
           {/* Subtitle with Improved Styling */}
           <p className="text-xl sm:text-2xl lg:text-3xl mb-12 text-blue-100 leading-relaxed max-w-3xl mx-auto font-light">
-            Your Trusted Partner for{' '}
-            <span className="font-semibold text-white">Exceptional Construction Solutions</span>{' '}
-            Built on Quality, Reliability, and Innovation
+            {formatSubtitle(subDisplayText)}
           </p>
 
           {/* CTA Buttons with Enhanced Design */}
