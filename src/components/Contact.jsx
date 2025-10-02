@@ -19,10 +19,9 @@ const Contact = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    // Your email address
-    const yourEmail = "jacksonnoel510@gmail.com"; // Replace with your actual email
     
-    // Create email subject and body
+    const yourEmail = "jacksonnoel510@gmail.com";
+    
     const subject = `New Project Inquiry: ${formData.project || 'General'} - ${formData.name}`;
     const body = `
 Name: ${formData.name}
