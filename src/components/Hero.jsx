@@ -1,6 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 const Hero = () => {
+  const [displayText, setDisplayText] = useState('');
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const fullText = "Build With Confidence";
+
+  useEffect(() => {
+    if (currentIndex < fullText.length) {
+      const timer = setTimeout(() => {
+        setDisplayText(prev => prev + fullText[currentIndex]);
+        setCurrentIndex(prev => prev + 1);
+      }, 100); // Adjust typing speed here
+      return () => clearTimeout(timer);
+    }
+  }, [currentIndex, fullText]);
+
   return (
     <section id="home" className="relative bg-gradient-to-br from-blue-900 via-blue-700 to-blue-600 text-white overflow-hidden">
       {/* Background Pattern */}
@@ -18,10 +32,12 @@ const Hero = () => {
           {/* Main Heading with Enhanced Typography */}
           <div className="mb-8">
             <h1 className="text-4xl sm:text-5xl lg:text-7xl font-black mb-6 leading-tight tracking-tight">
-              Build With{' '}
               <span className="relative inline-block">
-                <span className="relative z-10 bg-gradient-to-r from-yellow-300 to-yellow-400 bg-clip-text text-transparent">
-                  Confidence
+                <span className="relative z-10">
+                  {displayText}
+                  {currentIndex < fullText.length && (
+                    <span className="ml-1 w-1 h-12 bg-yellow-400 animate-pulse inline-block"></span>
+                  )}
                 </span>
                 <div className="absolute bottom-2 left-0 w-full h-3 bg-yellow-400/20 -rotate-1 rounded-lg"></div>
               </span>
