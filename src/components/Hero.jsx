@@ -17,7 +17,6 @@ const Hero = () => {
       }, 100);
       return () => clearTimeout(timer);
     } else if (currentIndex === fullText.length && subCurrentIndex === 0) {
-      // Start subtitle typing after main title finishes
       const timer = setTimeout(() => {
         setSubCurrentIndex(1);
       }, 500);
@@ -30,7 +29,7 @@ const Hero = () => {
       const timer = setTimeout(() => {
         setSubDisplayText(prev => prev + subText[subCurrentIndex - 1]);
         setSubCurrentIndex(prev => prev + 1);
-      }, 50); // Faster typing for subtitle
+      }, 50);
       return () => clearTimeout(timer);
     }
   }, [subCurrentIndex, subText]);
@@ -107,14 +106,14 @@ const Hero = () => {
               <div className="absolute inset-0 bg-white/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </a>
             
-            <a
+            {/* <a
               href="#services"
               className="group relative border-2 border-white/60 bg-white/5 backdrop-blur-sm text-white px-10 py-5 rounded-2xl font-bold text-lg hover:bg-white hover:text-blue-600 transition-all duration-300 shadow-xl transform hover:-translate-y-1 min-w-[200px] text-center"
             >
               <span className="relative z-10">Our Services</span>
               <div className="absolute inset-0 bg-white/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </a>
-          </div>
+          </div> */}
 
           {/* Features with Enhanced Design */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
